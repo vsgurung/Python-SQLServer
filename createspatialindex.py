@@ -1,5 +1,4 @@
 ##################################
-# Author : Vidya Sagar Gurung
 # Description: Python script to get spatial tables, check for spatial index and creating spatial index
 ##################################
 
