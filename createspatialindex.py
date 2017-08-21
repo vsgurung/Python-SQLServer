@@ -33,8 +33,6 @@ def get_tables(in_cursor,database='databasename',schema='dbo'):
 		table_list = []
 		for row in in_cursor.tables(catalog=database,schema=schema):
 			table_list.append(row.table_name)
-			#table_list.append('[{}].[{}]'.format(row.table_schem, row.table_name))
-			#print(row.table_schem, row.table_name)
 		return table_list
 	except pyodbc.Error as e:
 		print(e[1])
@@ -138,7 +136,6 @@ tables = get_spatial_tables(cur)
 
 for t in sorted(tables):
 	check_si = check_spatialindex(cur, t)
-	#print(check_si)
 	try:
 		if not check_si:
 			create_spatialindex(cur, t)
