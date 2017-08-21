@@ -106,8 +106,8 @@ def get_boundingbox(in_cur, in_table):
 		coords = cur.fetchall()
 		value_list = [coord for coord in coords[0]]
 		return dict(zip(key_list,value_list))
-	except pyodbc.Error:
-		print('Bounding box for {} could not be calculated'.format(in_table))
+	except pyodbc.Error as e:
+		print(e[1])
 
 def create_spatialindex(in_cur, in_table):
 	"""
