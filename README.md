@@ -1,2 +1,3 @@
 # Python-SQLServer
-Python script for SQL Server using pyodbc module
+Python script for creating spatial index in SQL Server database table using pyodbc module.
+
