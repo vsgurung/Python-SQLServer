@@ -55,8 +55,8 @@ def has_spatialindex(in_cur, in_table):
 	Returns: Boolean
 	"""
 	in_cur.execute("""select * from sys.indexes 
-							where object_id = (select object_id from sys.objects where name = ?) 
-							and type_desc='SPATIAL'""",in_table)
+			where object_id = (select object_id from sys.objects where name = ?) 
+			and type_desc='SPATIAL'""",in_table)
 	
 	r = [v[1] for v in in_cur.fetchall()] # Getting the table names only
 	#print(r)
