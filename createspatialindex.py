@@ -101,7 +101,7 @@ def get_boundingbox(in_cur, in_table):
 def create_spatialindex(in_cur, in_table,in_boundingbox):
 	"""
 	Description: This function creates spatial index on a table. 
-	Parameters: Accepts three arguments cursor and table.
+	Parameters: Accepts three arguments cursor, table and bounding box as dict.
 	Doesn't return any object. Remember to commit if autocommit is not set in the connection object. 
 	"""
 	print('Creating Spatial Index for {}'.format(in_table))
@@ -109,7 +109,7 @@ def create_spatialindex(in_cur, in_table,in_boundingbox):
 					USING GEOMETRY_GRID WITH(
 					BOUNDING_BOX=(xmin={},ymin={},xmax={},ymax={}),
 					GRIDS=(MEDIUM, MEDIUM, MEDIUM, MEDIUM),
-					CELLS_PER_OBJECT=16) """.format(in_table,in_table,bb['MinX'],bb['MinY'],bb['MaxX'],bb['MaxY']))
+					CELLS_PER_OBJECT=16) """.format(in_table,in_table,in_boundingbox['MinX'],in_boundingbox['MinY'],in_boundingbox['MaxX'],in_boundingbox['MaxY']))
 	in_cur.commit()
 	print('Spatial Index for {} created successfully.'.format(in_table))
 
