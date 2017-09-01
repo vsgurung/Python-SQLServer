@@ -115,7 +115,7 @@ def create_spatialindex(in_cur, in_table,in_boundingbox):
 
 
 try:
-	cur = create_cursor('BHOOTNATH-PC\SQLEXPRESS', 'OS_SampleData', 'vsgurung', 'admingurung')
+	cur = create_cursor()
 	tables = get_spatial_tables(cur)
 
 	for t in sorted(tables):
