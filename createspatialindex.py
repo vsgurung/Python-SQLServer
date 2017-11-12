@@ -29,8 +29,8 @@ def get_tables(in_cursor,database='databasename',schema='dbo'):
 	table_list = []
 	for row in in_cursor.tables(catalog=database,schema=schema):
 		table_list.append(row.table_name)
-		if table_list:
-			return table_list
+	if table_list:
+		return table_list
 '''
 
 def get_spatial_tables(in_cursor, schema='dbo'):
