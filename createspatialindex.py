@@ -65,7 +65,6 @@ def has_spatialindex(in_cur, in_table):
 	else:
 		return True
 
-
 def has_primarykey(in_cur, in_table):
 	"""
 	Description: This function checks if table has primary key and returns boolean
@@ -123,7 +122,7 @@ def set_primarykey(in_cur, in_table):
 		ALTER TABLE {0} ADD CONSTRAINT PK_{1}_OBJECTID PRIMARY KEY CLUSTERED (OBJECTID)
 		""".format(in_table, in_table))
 	in_cur.commit()
-	print('Primary key PK_{} set for table {}'.format(in_table,in_table))
+	print('Primary key PK_{}_OBJECTID set for table {}'.format(in_table,in_table))
 	
 
 try:
