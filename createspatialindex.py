@@ -139,9 +139,9 @@ try:
 		for t in tbls_without_si:
 			if t in tbls_without_pk:
 				set_primarykey(cur, t)
-				create_spatialindex(cur,t)
+				create_spatialindex(cur,t,get_boundingbox(cur,t))
 			else:
-				create_spatialindex(cur,t)
+				create_spatialindex(cur,t,get_boundingbox(cur,t))
 	else:
 		print('All tables have spatial index')
 
