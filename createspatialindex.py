@@ -103,6 +103,12 @@ def create_spatialindex(in_cur, in_table,in_boundingbox):
 	Parameters: Accepts three arguments cursor, table and bounding box as dict.
 	Doesn't return any object. Remember to commit if autocommit is not set in the connection object. 
 	"""
+	# Calculating bounding box
+	print('Calculating bounding box.')
+	bb = get_boundingbox(in_cur, in_table)
+	print('Finished calculating bounding box.')
+	
+	# Creating spatial index
 	print('Creating Spatial Index for {}'.format(in_table))
 	in_cur.execute("""CREATE SPATIAL INDEX SIDX_{} ON {}(GEOM)
 					USING GEOMETRY_GRID WITH(
@@ -139,9 +145,9 @@ try:
 		for t in tbls_without_si:
 			if t in tbls_without_pk:
 				set_primarykey(cur, t)
-				create_spatialindex(cur,t,get_boundingbox(cur,t))
+				create_spatialindex(cur,t)
 			else:
-				create_spatialindex(cur,t,get_boundingbox(cur,t))
+				create_spatialindex(cur,t)
 	else:
 		print('All tables have spatial index')
 
