@@ -113,27 +113,38 @@ def create_spatialindex(in_cur, in_table,in_boundingbox):
 	in_cur.commit()
 	print('Spatial Index for {} created successfully.'.format(in_table))
 
+def set_primarykey(in_cur, in_table):
+	"""
+	This function takes cursor and table as argument and sets the primary key for the table.
+	Assumes that the table has column named OBJECTID on which primary key will be set.
+	"""
+	print('Setting Primary Key for {}'.format(in_table))
+	in_cur.execute(""" 
+		ALTER TABLE {0} ADD CONSTRAINT PK_{1}_OBJECTID PRIMARY KEY CLUSTERED (OBJECTID)
+		""".format(in_table, in_table))
+	in_cur.commit()
+	print('Primary key PK_{} set for table {}'.format(in_table,in_table))
+	
 
 try:
 	cur = create_cursor()
 	tables = get_spatial_tables(cur)
 
-	for t in sorted(tables):
-		has_si = has_spatialindex(cur, t)
-		#print(has_si)
-		try:
-			if not has_si:
-				has_pk=has_primarykey(cur, t)
-				if has_pk:
-					bb = get_boundingbox(cur, t)
-					create_spatialindex(cur, t, bb)
-				else:
-					#set_primarykey()
-					print('Table {} has no primary key defined.'.format(t))
+	# Get all tables without spatial index
+	tbls_without_si =[t for t in tables if not has_spatialindex(cur,t)]
+
+	# Get all tables without primary key
+	tbls_without_pk = [t for t in tbls_without_si if not has_primarykey(cur, t)]
+
+	if tbls_without_si:
+		for t in tbls_without_si:
+			if t in tbls_without_pk:
+				set_primarykey(cur, t)
+				create_spatialindex(cur,t)
 			else:
-				print('Table {} already has a spatial index.'.format(t))
-		except pyodbc.Error as e:
-			print(e[1])
+				create_spatialindex(cur,t)
+	else:
+		print('All tables have spatial index')
 
 except Exception as e:
 	print(e)
