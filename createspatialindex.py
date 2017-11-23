@@ -114,7 +114,7 @@ def create_spatialindex(in_cur, in_table,in_boundingbox):
 					USING GEOMETRY_GRID WITH(
 					BOUNDING_BOX=(xmin={},ymin={},xmax={},ymax={}),
 					GRIDS=(MEDIUM, MEDIUM, MEDIUM, MEDIUM),
-					CELLS_PER_OBJECT=16) """.format(in_table,in_table,in_boundingbox['MinX'],in_boundingbox['MinY'],in_boundingbox['MaxX'],in_boundingbox['MaxY']))
+					CELLS_PER_OBJECT=16) """.format(in_table,in_table,bb['MinX'],bb['MinY'],bb['MaxX'],bb['MaxY']))
 	in_cur.commit()
 	print('Spatial Index for {} created successfully.'.format(in_table))
 
