@@ -20,17 +20,15 @@ def create_cursor():
 			return cur
 
 '''		
-def get_tables(in_cursor,database='databasename',schema='dbo'):
+def get_tables(in_cursor,in_database='databasename',in_schema='dbo', in_tabletype='TABLE'):
 	"""
 	Description: Returns list of tables in a database.
 	Parameters: cursor object, database name and schema name
 	Returns: List of all table names
 	"""
-	table_list = []
-	for row in in_cursor.tables(catalog=database,schema=schema):
-		table_list.append(row.table_name)
-	if table_list:
-		return table_list
+	tables = [t.table_name for t in in_cursor.tables(catalog=in_database,schema=in_schema,in_tabletype).fetchall()]
+	if tables:
+	    return tables
 '''
 
 def get_spatial_tables(in_cursor, schema='dbo'):
